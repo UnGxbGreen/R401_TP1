@@ -64,14 +64,39 @@ namespace WSConvertisseur.Controllers
 
         // PUT api/<DevisesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult Put(int id, [FromBody] Devise devise)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (id != devise.IdDevise)
+            {
+                return BadRequest();
+            }
+            int index = listDevises.FindIndex((d) => d.IdDevise == id);
+            if (index < 0)
+            {
+                return NotFound();
+            }
+            listDevises[index] = devise;
+            return NoContent();
         }
 
         // DELETE api/<DevisesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpGet("{id}", Name = "GetDevise")]
+        public ActionResult<Devise> Delete(int id)
         {
+            Devise? devise =
+           (from d in listDevises
+            where d.IdDevise == id
+            select d).FirstOrDefault();
+            if (devise == null)
+            {
+                return NotFound();
+            }
+            listDevises.Remove(devise);
+            return NoContent();
         }
     }
 }
