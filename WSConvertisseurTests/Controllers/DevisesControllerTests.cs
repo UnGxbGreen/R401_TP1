@@ -95,5 +95,53 @@ namespace WSConvertisseur.Controllers.Tests
             Assert.AreEqual(StatusCodes.Status201Created, routeResult.StatusCode, "pas un StatusCode");
             Assert.AreEqual(routeResult.Value, new Devise(4, null, 15), "Pas la bonne valeur");
         }
+        [TestMethod]
+        public void Put_InvalidUpdate_ReturnsBadRequest()
+        {
+            //Arrange
+            var controller = new DevisesController();
+            // Act
+            var result = controller.Put(1,new Devise(4,"Pakistan",10));
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(ActionResult), "Pas un ActionResult"); // Test du type de retour
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult), "pas de type BadRequestResult"); //Test de l'erreur
+            BadRequestResult badRequestResult = (BadRequestResult)result;
+            Assert.AreEqual(StatusCodes.Status400BadRequest, badRequestResult.StatusCode, "pas un StatusCode");
+        }
+
+        [TestMethod]
+        public void Put_InvalidUpdate_ReturnsNotFound()
+        {
+            //Arrange
+            var controller = new DevisesController();
+            // Act
+            var result = controller.Put(100, new Devise(100, "Pakistan", 10));
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(ActionResult), "Pas un ActionResult"); // Test du type de retour
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult), "pas de type NotFoundResult"); //Test de l'erreur
+            NotFoundResult notFoundtResult = (NotFoundResult)result;
+            Assert.AreEqual(StatusCodes.Status404NotFound, notFoundtResult.StatusCode, "pas un StatusCode");
+        }
+
+
+        [TestMethod]
+        public void Put_InvalidUpdate_ReturnsNoContent()
+        {
+            //Arrange
+            var controller = new DevisesController();
+            // Act
+            var result = controller.Put(1, new Devise(1, "Pakistan", 10));
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(ActionResult), "Pas un ActionResult"); // Test du type de retour
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult), "pas de type NotFoundResult"); //Test de l'erreur
+            NotFoundResult notFoundtResult = (NotFoundResult)result;
+            Assert.AreEqual(StatusCodes.Status204NoContent, notFoundtResult.StatusCode, "pas un StatusCode");
+        }
+
+
+
     }
 }
