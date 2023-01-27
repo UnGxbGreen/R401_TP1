@@ -11,14 +11,25 @@ using Microsoft.AspNetCore.Http;
 
 namespace WSConvertisseur.Controllers.Tests
 {
+    
     [TestClass()]
+
     public class DevisesControllerTests
     {
+        public DevisesController controller;
+        [TestInitialize]
+        public void InitialisationDesTests()
+        { 
+            controller= new DevisesController();
+            
+        
+        }
+
         [TestMethod]
         public void GetById_ExistingIdPassed_ReturnsRightItem()
         {
             // Arrange
-            DevisesController controller = new DevisesController();
+            //DevisesController controller = new DevisesController();
             // Act
             var result = controller.GetById(1);
 
@@ -33,7 +44,7 @@ namespace WSConvertisseur.Controllers.Tests
         public void GetById_UnknownGuiPassed_ReturnsNotFoundResult()
         {
             // Arrange
-            DevisesController controller = new DevisesController();
+           // DevisesController controller = new DevisesController();
             // Act
             var result = controller.GetById(4);
 
@@ -49,7 +60,7 @@ namespace WSConvertisseur.Controllers.Tests
         {
 
             // Arrange
-            DevisesController controller = new DevisesController();
+           // DevisesController controller = new DevisesController();
             // Act
 
             var result = controller.GetAll();
@@ -63,7 +74,7 @@ namespace WSConvertisseur.Controllers.Tests
         {
 
             // Arrange
-            DevisesController controller = new DevisesController();
+           // DevisesController controller = new DevisesController();
             // Act
 
             var result = controller.Post(new Devise(4, "babaz", 15));
@@ -82,7 +93,7 @@ namespace WSConvertisseur.Controllers.Tests
         {
 
             // Arrange
-            DevisesController controller = new DevisesController();
+            //DevisesController controller = new DevisesController();
             // Act
 
             var result = controller.Post(new Devise(4, null, 15));
@@ -99,7 +110,7 @@ namespace WSConvertisseur.Controllers.Tests
         public void Put_InvalidUpdate_ReturnsBadRequest()
         {
             //Arrange
-            var controller = new DevisesController();
+            //var controller = new DevisesController();
             // Act
             var result = controller.Put(1,new Devise(4,"Pakistan",10));
 
@@ -114,7 +125,7 @@ namespace WSConvertisseur.Controllers.Tests
         public void Put_InvalidUpdate_ReturnsNotFound()
         {
             //Arrange
-            var controller = new DevisesController();
+            //var controller = new DevisesController();
             // Act
             var result = controller.Put(100, new Devise(100, "Pakistan", 10));
 
@@ -130,7 +141,7 @@ namespace WSConvertisseur.Controllers.Tests
         public void Put_InvalidUpdate_ReturnsNoContent()
         {
             //Arrange
-            var controller = new DevisesController();
+            //var controller = new DevisesController();
             // Act
             var result = controller.Put(1, new Devise(1, "Pakistan", 10));
 
@@ -145,7 +156,7 @@ namespace WSConvertisseur.Controllers.Tests
         public void Delete_NotOk_ReturnsNotFound()
         {
             // Arrange
-            DevisesController controller = new DevisesController();
+            //DevisesController controller = new DevisesController();
             // Act
             var result = controller.Delete(100);
 
@@ -159,7 +170,7 @@ namespace WSConvertisseur.Controllers.Tests
         public void Delete_Ok_ReturnsRightItem()
         {
             // Arrange
-            DevisesController controller = new DevisesController();
+           // DevisesController controller = new DevisesController();
             // Act
             var result = controller.Delete(1);
 
